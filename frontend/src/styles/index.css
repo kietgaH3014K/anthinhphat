@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-paper font-sans text-steel-900 antialiased; }
+  :focus-visible { outline: 3px solid theme("colors.gold"); outline-offset: 2px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@layer components {
+  /* Giá luôn dùng chữ số đều nhau để các cột giá thẳng hàng */
+  .price { @apply font-bold text-steel-900; font-variant-numeric: tabular-nums; }
+
+  /* Lưới bản vẽ: nền cho các khối nhấn mạnh */
+  .blueprint-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Hàng gạch xây lệch nhau nửa viên – điểm nhận diện duy nhất của hero */
+  .brick-courses {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='56'%3E%3Cpath d='M0 0H112M0 28H112M0 0V28M56 28V56' stroke='%2325282C' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+    background-size: 112px 56px;
+  }
+
+  /* Dấu góc như khung bản vẽ, dùng cho thẻ sản phẩm và khối thông số */
+  .corner-marks { position: relative; }
+  .corner-marks::before, .corner-marks::after {
+    content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid theme("colors.brand.500");
+    transition: transform 0.2s ease;
+  }
+  .corner-marks::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+  .corner-marks::after { right: -1px; bottom: -1px; border-left: 0; border-top: 0; }
+  .corner-marks:hover::before { transform: translate(-3px, -3px); }
+  .corner-marks:hover::after { transform: translate(3px, 3px); }
+}
+
+/* Nền gạch nhạt cho khung ảnh sản phẩm khi chưa có ảnh thật */
+.brick-light {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='56'%3E%3Cpath d='M0 0H112M0 28H112M0 0V28M56 28V56' stroke='%23D9DBDE' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+  background-size: 112px 56px;
+}
